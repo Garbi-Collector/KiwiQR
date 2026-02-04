@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import QRCode, { QRCodeToDataURLOptions } from 'qrcode';
 
@@ -13,7 +13,7 @@ interface QRMode {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgOptimizedImage],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
