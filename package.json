@@ -20,7 +20,8 @@
     "@angular/router": "^17.3.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.14.3",
+    "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.17",
@@ -33,6 +34,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.2",
+    "@types/node": "^20.10.0",
+    "@types/qrcode": "^1.5.5"
   }
 }
