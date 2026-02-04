@@ -1,0 +1,150 @@
+@import "theme/theme";
+
+.modes-section {
+  margin-bottom: 2rem;
+
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $kiwi-700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .title-icon {
+      font-size: 1.6rem;
+    }
+  }
+
+  .modes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.2rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .mode-card {
+    background: white;
+    border: 2px solid $kiwi-150;
+    border-radius: 16px;
+    padding: 1.75rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, $kiwi-50 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mode-header {
+      position: relative;
+      margin-bottom: 0.75rem;
+
+      .mode-icon {
+        font-size: 3rem;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .check-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: $kiwi-500;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba($kiwi-500, 0.4);
+        animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+
+    .mode-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: $kiwi-700;
+      margin-bottom: 0.4rem;
+      transition: color 0.3s ease;
+    }
+
+    .mode-description {
+      font-size: 0.85rem;
+      color: $kiwi-600;
+      line-height: 1.4;
+    }
+
+    &:hover {
+      border-color: $kiwi-400;
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba($kiwi-500, 0.2);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .mode-icon {
+        transform: scale(1.1);
+      }
+    }
+
+    &.active {
+      border-color: $kiwi-500;
+      background: linear-gradient(135deg, $kiwi-50 0%, white 100%);
+      box-shadow: 0 8px 20px rgba($kiwi-500, 0.25);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .mode-name {
+        color: $kiwi-500;
+      }
+    }
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .modes-section .modes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .mode-card {
+    padding: 1.5rem 1rem;
+
+    .mode-header .mode-icon {
+      font-size: 2.5rem;
+    }
+  }
+}

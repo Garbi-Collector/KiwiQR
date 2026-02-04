@@ -1,19 +1,22 @@
 import { Component } from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import QRCode, { QRCodeToDataURLOptions } from 'qrcode';
-
-interface QRMode {
-  id: string;
-  name: string;
-  icon: string;
-  description: string;
-}
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from './components/header/header.component';
+import { QrInputComponent } from './components/qr-input/qr-input.component';
+import { ModeSelectorComponent } from './components/mode-selector/mode-selector.component';
+import { QrDisplayComponent } from './components/qr-display/qr-display.component';
+import {QRMode} from "./models/Qr.model";
+import {QrGeneratorService} from "./service/Qr generator.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgOptimizedImage],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    QrInputComponent,
+    ModeSelectorComponent,
+    QrDisplayComponent
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -51,18 +54,23 @@ export class AppComponent {
     }
   ];
 
-  constructor() {
+  constructor(private qrService: QrGeneratorService) {
     this.selectedMode = this.qrModes[0];
   }
 
-  selectMode(mode: QRMode) {
+  async onInputChange(text: string): Promise<void> {
+    this.inputText = text;
+    await this.generateQR();
+  }
+
+  async onModeSelected(mode: QRMode): Promise<void> {
     this.selectedMode = mode;
     if (this.inputText) {
-      this.generateQR();
+      await this.generateQR();
     }
   }
 
-  async generateQR() {
+  async generateQR(): Promise<void> {
     if (!this.inputText.trim()) {
       this.qrCodeDataUrl = '';
       return;
@@ -71,9 +79,13 @@ export class AppComponent {
     this.isGenerating = true;
 
     try {
-      const options = this.getQROptions();
-      const dataUrl = await QRCode.toDataURL(this.inputText, options);
-      this.qrCodeDataUrl = dataUrl || '';
+      const dataUrl = await this.qrService.generateQR({
+        text: this.inputText,
+        mode: this.selectedMode.id,
+        size: 400,
+        margin: 2
+      });
+      this.qrCodeDataUrl = dataUrl;
     } catch (error) {
       console.error('Error generando QR:', error);
       this.qrCodeDataUrl = '';
@@ -84,53 +96,7 @@ export class AppComponent {
     }
   }
 
-  getQROptions(): QRCodeToDataURLOptions {
-    const baseOptions: QRCodeToDataURLOptions = {
-      errorCorrectionLevel: 'H',
-      width: 400,
-      margin: 2,
-    };
-
-    switch (this.selectedMode.id) {
-      case 'kiwi':
-        return {
-          ...baseOptions,
-          color: {
-            dark: '#3fa05f',  // kiwi-500
-            light: '#f4fbf6'  // kiwi-50
-          }
-        };
-
-      case 'rounded':
-        return {
-          ...baseOptions,
-          color: {
-            dark: '#2d7849',  // kiwi-600
-            light: '#ffffff'
-          }
-        };
-
-      case 'dots':
-        return {
-          ...baseOptions,
-          color: {
-            dark: '#1e5033',  // kiwi-700
-            light: '#e6f6eb'  // kiwi-100
-          }
-        };
-
-      default: // standard
-        return {
-          ...baseOptions,
-          color: {
-            dark: '#000000',
-            light: '#ffffff'
-          }
-        };
-    }
-  }
-
-  downloadQR() {
+  downloadQR(): void {
     if (!this.qrCodeDataUrl) return;
 
     const link = document.createElement('a');
@@ -139,7 +105,7 @@ export class AppComponent {
     link.click();
   }
 
-  clearAll() {
+  clearAll(): void {
     this.inputText = '';
     this.qrCodeDataUrl = '';
   }

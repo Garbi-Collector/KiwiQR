@@ -1,97 +1,41 @@
 <div class="app-container">
   <!-- Header -->
-  <header class="header fade-in">
-    <div class="logo">
-      <div class="logo-container">
-        <img ngSrc="assets/kiwi.png" alt="Kiwi" class="logo-bg" height="512" width="512">
-        <h1 class="logo-text">Kiwi<span class="logo-accent">QR</span></h1>
-      </div>
-    </div>
-    <p class="tagline">Genera códigos QR al instante</p>
-  </header>
+  <app-header></app-header>
 
   <!-- Main Content -->
   <main class="main-content">
     <div class="content-wrapper">
 
       <!-- Input Section -->
-      <section class="input-section fade-in">
-        <div class="card">
-          <label for="qr-input" class="input-label">
-            <span class="label-icon">✏️</span>
-            Ingresa tu texto o URL
-          </label>
-          <textarea
-            id="qr-input"
-            [(ngModel)]="inputText"
-            (ngModelChange)="generateQR()"
-            placeholder="Ejemplo: https://tusitio.com o cualquier texto..."
-            class="text-input"
-            rows="4"
-          ></textarea>
-
-          @if (inputText) {
-            <button class="clear-btn" (click)="clearAll()" type="button">
-              <span>🗑️</span> Limpiar
-            </button>
-          }
-        </div>
-      </section>
+      <app-qr-input
+        [(inputValue)]="inputText"
+        (inputValueChange)="onInputChange($event)"
+        (clearRequested)="clearAll()"
+      ></app-qr-input>
 
       <!-- QR Modes -->
-      <section class="modes-section fade-in">
-        <h2 class="section-title">Estilo del QR</h2>
-        <div class="modes-grid">
-          @for (mode of qrModes; track mode.id) {
-            <button
-              class="mode-card"
-              [class.active]="selectedMode.id === mode.id"
-              (click)="selectMode(mode)"
-              type="button"
-            >
-              <span class="mode-icon">{{ mode.icon }}</span>
-              <h3 class="mode-name">{{ mode.name }}</h3>
-              <p class="mode-description">{{ mode.description }}</p>
-            </button>
-          }
-        </div>
-      </section>
+      <app-mode-selector
+        [modes]="qrModes"
+        [selectedMode]="selectedMode"
+        (modeSelected)="onModeSelected($event)"
+      ></app-mode-selector>
 
       <!-- QR Display -->
-      <section class="qr-section fade-in">
-        @if (isGenerating) {
-          <div class="qr-loading">
-            <div class="spinner"></div>
-            <p>Generando QR...</p>
-          </div>
-        } @else if (qrCodeDataUrl) {
-          <div class="qr-display-card">
-            <div class="qr-preview">
-              <img [src]="qrCodeDataUrl" alt="Código QR generado" class="qr-image">
-            </div>
-            <button class="download-btn" (click)="downloadQR()" type="button">
-              <span class="btn-icon">⬇️</span>
-              <span class="btn-text">Descargar QR</span>
-            </button>
-            <p class="qr-info">
-              <span class="info-icon">ℹ️</span>
-              Modo: <strong>{{ selectedMode.name }}</strong>
-            </p>
-          </div>
-        } @else {
-          <div class="qr-empty">
-            <span class="empty-icon">🥝</span>
-            <h3 class="empty-title">¡Comienza a crear!</h3>
-            <p class="empty-text">Escribe algo arriba y tu código QR aparecerá aquí</p>
-          </div>
-        }
-      </section>
+      <app-qr-display
+        [qrDataUrl]="qrCodeDataUrl"
+        [isGenerating]="isGenerating"
+        [selectedMode]="selectedMode"
+        (download)="downloadQR()"
+      ></app-qr-display>
 
     </div>
   </main>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>Hecho con 💚 por Garbi-Collector</p>
+    <div class="footer-content">
+      <p class="footer-text">Hecho con 💚 por <strong>Garbi-Collector</strong></p>
+      <p class="footer-subtext">KiwiQR - Generador de códigos QR gratuito y sin límites</p>
+    </div>
   </footer>
 </div>

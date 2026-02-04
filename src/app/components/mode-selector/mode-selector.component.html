@@ -1,0 +1,25 @@
+<section class="modes-section fade-in">
+  <h2 class="section-title">
+    <span class="title-icon">🎨</span>
+    Elige el estilo de tu QR
+  </h2>
+  <div class="modes-grid">
+    @for (mode of modes; track mode.id) {
+      <button
+        class="mode-card"
+        [class.active]="selectedMode?.id === mode.id"
+        (click)="selectMode(mode)"
+        type="button"
+      >
+        <div class="mode-header">
+          <span class="mode-icon">{{ mode.icon }}</span>
+          @if (selectedMode?.id === mode.id) {
+            <span class="check-badge">✓</span>
+          }
+        </div>
+        <h3 class="mode-name">{{ mode.name }}</h3>
+        <p class="mode-description">{{ mode.description }}</p>
+      </button>
+    }
+  </div>
+</section>

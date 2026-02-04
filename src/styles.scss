@@ -1,5 +1,4 @@
-/* 🥝 KiwiQR - Global Styles */
-@import './theme/theme.scss';
+@import "theme/theme";
 
 * {
   margin: 0;
@@ -8,16 +7,19 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, $kiwi-50 0%, $kiwi-100 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, $kiwi-50 0%, $kiwi-100 50%, $kiwi-150 100%);
+  background-attachment: fixed;
   color: $kiwi-800;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Scrollbar personalizado */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -25,12 +27,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $kiwi-400;
-  border-radius: 4px;
+  background: linear-gradient(180deg, $kiwi-400, $kiwi-500);
+  border-radius: 5px;
+  border: 2px solid $kiwi-100;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: $kiwi-500;
+  background: linear-gradient(180deg, $kiwi-500, $kiwi-600);
 }
 
 /* Animaciones globales */
@@ -60,9 +63,18 @@ body {
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
 /* Utilidades */
 .fade-in {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .text-center {
@@ -73,4 +85,26 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+/* Selección de texto */
+::selection {
+  background: rgba($kiwi-500, 0.2);
+  color: $kiwi-800;
+}
+
+::-moz-selection {
+  background: rgba($kiwi-500, 0.2);
+  color: $kiwi-800;
+}
+
+/* Focus visible para accesibilidad */
+*:focus-visible {
+  outline: 2px solid $kiwi-500;
+  outline-offset: 2px;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }

@@ -1,0 +1,31 @@
+<section class="input-section fade-in">
+  <div class="card">
+    <label for="qr-input" class="input-label">
+      <span class="label-icon">✏️</span>
+      Ingresa tu texto o URL
+    </label>
+    <textarea
+      id="qr-input"
+      [(ngModel)]="inputValue"
+      (ngModelChange)="onInputChange()"
+      placeholder="Ejemplo: https://tusitio.com, texto, número de teléfono..."
+      class="text-input"
+      rows="4"
+    ></textarea>
+
+    <div class="input-stats">
+          <span class="char-count" [class.warning]="inputValue.length > 500">
+            {{ inputValue.length }} caracteres
+          </span>
+      @if (inputValue.length > 500) {
+        <span class="char-warning">⚠️ QR muy denso, puede ser difícil de escanear</span>
+      }
+    </div>
+
+    @if (inputValue) {
+      <button class="clear-btn" (click)="clearInput()" type="button">
+        <span>🗑️</span> Limpiar todo
+      </button>
+    }
+  </div>
+</section>

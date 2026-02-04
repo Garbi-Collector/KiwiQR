@@ -1,5 +1,6 @@
-// 🥝 Kiwi Color Palette
+// 🥝 Kiwi Color Palette - Enhanced
 
+// Verdes principales (carne del kiwi)
 $kiwi-50:  #f4fbf6; // casi blanco, fondos muy suaves
 $kiwi-100: #e6f6eb; // fondo claro
 $kiwi-150: #d7f0df; // cards light
@@ -10,7 +11,7 @@ $kiwi-300: #8fd2a3; // hover light
 $kiwi-350: #76c78d;
 $kiwi-400: #5dbb77; // primary light
 $kiwi-450: #4caf6a;
-$kiwi-500: #3fa05f; // PRIMARY kiwi
+$kiwi-500: #3fa05f; // PRIMARY kiwi (verde vibrante)
 
 $kiwi-550: #368c54;
 $kiwi-600: #2d7849; // botones activos
@@ -23,6 +24,10 @@ $kiwi-850: #0c1f15;
 $kiwi-900: #07140d; // casi negro
 $kiwi-950: #030a06; // negro verdoso
 
-// 🍂 Neutrales complementarios (opcional pero recomendado)
+// 🍂 Neutrales complementarios
 $kiwi-seed: #3b2f2a; // marrón semilla
-$kiwi-skin: #6b5e3c; // piel de kiwi
+$kiwi-skin: #6b5e3c; // piel de kiwi (marrón dorado)
+
+// 🎨 Colores de acento (opcional para futuras features)
+$kiwi-accent-yellow: #f4d03f; // amarillo kiwi dorado
+$kiwi-accent-brown: #8b7355; // marrón suave

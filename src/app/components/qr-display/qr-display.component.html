@@ -1,0 +1,60 @@
+<section class="qr-section fade-in">
+  @if (isGenerating) {
+    <div class="qr-loading">
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <span class="kiwi-spinner">🥝</span>
+      </div>
+      <p class="loading-text">Generando tu QR...</p>
+    </div>
+  } @else if (qrDataUrl) {
+    <div class="qr-display-card">
+      <div class="qr-preview">
+        <div class="qr-frame">
+          <img [src]="qrDataUrl" alt="Código QR generado" class="qr-image">
+        </div>
+        <div class="qr-badge">
+          <span class="badge-icon">{{ selectedMode?.icon }}</span>
+          <span class="badge-text">{{ selectedMode?.name }}</span>
+        </div>
+      </div>
+
+      <div class="qr-actions">
+        <button class="download-btn primary" (click)="downloadQR()" type="button">
+          <span class="btn-icon">⬇️</span>
+          <span class="btn-text">Descargar QR</span>
+        </button>
+
+        <button class="download-btn secondary" (click)="copyToClipboard()" type="button">
+          <span class="btn-icon">📋</span>
+          <span class="btn-text">Copiar imagen</span>
+        </button>
+      </div>
+
+      <div class="qr-info">
+        <div class="info-item">
+          <span class="info-icon">✨</span>
+          <span class="info-text">Alta resolución (400x400px)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">📱</span>
+          <span class="info-text">Compatible con todos los lectores</span>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="qr-empty">
+      <div class="empty-animation">
+        <span class="empty-icon">🥝</span>
+        <div class="empty-pulse"></div>
+      </div>
+      <h3 class="empty-title">¡Comienza a crear!</h3>
+      <p class="empty-text">Escribe algo arriba y tu código QR aparecerá aquí como por arte de magia</p>
+      <div class="empty-features">
+        <span class="feature-tag">✓ Sin límites</span>
+        <span class="feature-tag">✓ Sin marca de agua</span>
+        <span class="feature-tag">✓ Totalmente gratis</span>
+      </div>
+    </div>
+  }
+</section>
